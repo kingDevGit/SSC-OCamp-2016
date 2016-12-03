@@ -1,0 +1,10 @@
+{
+  "name": "inTime",
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://chrono.kenny-tang.com/api"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+<ion-view view-title="Chorno Science">
+	<ion-content padding="false">
+		<p ng-show="!game.isLoaded"></p>
+		<div class="card" ng-if="game.isLoaded" >
+			<div class='item text-center' ng-show="true" id="card-item">
+				<div class="row">
+					<div  id="neon" class="col-25"><img src="./img/LOGO.png" width="170%"></div>
+					<div class="col"></div>
+					<div  id="neon" class="col-25 wrap"><p id="neon">偵查小隊 </p>{{::game.player.union.name}}</div>
+					<div class="col-25" id="card-item">
+						<div id="neon" ><p id="neon">死亡次數</p> </div>
+						<p><div id="neon">{{game.player.die_count}}</div></p>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class='item' ng-show="true" id="card-item">
+				<div class="row">
+					<div class="col-25 text-center"  id="card-item">
+						<p><div id="neon"  >隊員 {{::game.player.nickname}}</div></p>
+					</div><div class="col"></div>
+
+				</div>
+			</div>
+
+
+			<div class='item text-center' ng-show="!started()"  id="card-item">
+
+				
+				<div id="neon" >現在的時間是</div>
+
+				<h2 id="neon">{{date}} </h2>
+
+			</div>
+			<div class='assertive item text-center' ng-show="disconnected"  id="card-item">
+
+				
+				已中斷連線... 正重新連接中
+			</div>
+
+
+			<div class='item text-center' ng-show="game.primaryTimer"   id="timer-bg" >
+
+				<h1>
+					<div id="neon-timer" >
+						<div ng-if="game.isLoaded" ng-show="isDie()"> DIE </div>
+
+						<timer interval="1000" countdown="countDown" autostart="false" ng-if="game.isLoaded" ng-show="!isDie()">{{ddays}}:{{hhours}}:{{mminutes}}:{{sseconds}}</timer>
+					</div>
+				</h1>
+
+
+				<ion-item class="button button-full button-dark" ng-disabled="allowTrans()" ng-click="tranTimePopup()">
+					傳送時間
+				</ion-item>
+
+			</div>
+
+			<div class='item text-center' ng-show="game.secondaryTimer"   id="timer-bg" >
+
+				<h1>
+					<div id="neon-timer-off" >
+					<timer interval="1000" countdown="game.secondaryTimer.getRemainSecond()" autostart="false" ng-if="game.isLoaded">{{::ddays}}:{{::hhours}}:{{::mminutes}}:{{::sseconds}}</timer>
+						
+					</div>
+				</h1>
+
+				
+
+			</div>
+
+
+			<div class=" positive  item text-center" id="card-item" ng-click="msgBox($event)" ng-if="!newMsg">
+				<div id="neon" >按我查看通知</div>
+
+			</div>
+			<div class=" assertive  item text-center" id="card-item" ng-click="msgBox($event)" ng-if="newMsg">
+				<div id="neon" >您有新的通知!</div>
+
+			</div>
+
+
+
+
+			<div class='item text-center' ng-show="true" id="card-item">
+
+
+				<div id="neon">裝置 ID</div>
+				{{::game.player.address|| 'Error'}}
+				<br>
+				<!-- <h1 id="neon" >{{game.player.address|| 'Error'}}</h1> -->
+				<qr text="game.player.address|| 'Error'" ng-if="game.isLoaded"></qr> 
+				<br>
+
+			</div>
+
+			<ion-item class="button button-full button-assertive" ng-click="logout()">
+				登出
+			</ion-item>
+
+<!-- <div class=" positive  item text-center" id="card-item" ng-click="eventBox($event)" >
+				<div id="neon" >Event Log</div>
+
+			</div> -->
+
+
+		
+
+
+		</ion-content>
+	</ion-view>

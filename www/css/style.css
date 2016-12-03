@@ -1,0 +1,48 @@
+/*.pane {
+    background-color: #000;
+} Empty. Add your own CSS if you like 
+
+*/
+
+
+.loginPage{
+    background: url("../img/bg.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+
+}
+
+.blueCardPage{
+    background: url("../img/blue.jpg") no-repeat center center fixed;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    background-size: contain;
+}
+
+
+#timer-bg {
+ background: #000  !important;
+
+
+}
+#neon-timer{
+
+font-family: "OCRAEXT";
+	 color: #39FF14;
+}
+
+
+#neon-timer-off{
+
+font-family: "OCRAEXT";
+	 color: #8c8c8c;
+}
+
+
+/*
+#qr-item {
+ background: #FFFFFF  !important;
+
+
+}*/
