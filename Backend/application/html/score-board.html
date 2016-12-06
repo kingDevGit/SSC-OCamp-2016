@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Score Board</title>
+</head>
+<body>
+
+</body>
+<script>
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            output(JSON.parse(this.responseText));
+        }
+    };
+    xmlhttp.open('GET', '/api/score-board', true);
+    xmlhttp.send();
+
+    function output(obj) {
+        console.log(obj);
+        obj.forEach(function(row) {
+            var e = document.createElement('p');
+
+            e.innerHTML = '' +
+                    '組別: ' + row['group_name'] + '<br>' +
+                    '人數: ' + row['player_count'] + '<br>' +
+                    '總秒數（分鐘）: ' + (row['total_second'] / 60) + '<br>' +
+                    '總死亡次數: ' + row['total_die_count'] + '<br>' +
+                    '平均秒數（分鐘）: ' + (row['average_second'] / 60) + '<br>' +
+                    '平均死亡次數: ' + row['average_die_count'];
+
+            document.body.appendChild(e);
+        });
+    }
+</script>
+</html>

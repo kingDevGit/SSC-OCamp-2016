@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="chrono" defaultIdMethod="native" namespace="App\Model" tablePrefix="chrono_">
+    <table name="player">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="nickname" type="varchar" required="true" size="255"/>
+        <column name="gender" type="enum" required="true" valueSet="male,female"/>
+        <column name="union_id" type="integer"/>
+        <column name="tags" type="array"/>
+        <column name="address" type="varchar" required="true" size="10"/>
+        <column name="die_count" type="integer" required="true" defaultValue="0"/>
+
+        <foreign-key foreignTable="union">
+            <reference local="union_id" foreign="id"/>
+        </foreign-key>
+
+        <behavior name="timestampable"/>
+        <behavior name="validate">
+            <parameter name="nickname_required" value="{column: nickname, validator: NotBlank}" />
+            <parameter name="address_required" value="{column: address, validator: NotBlank}" />
+        </behavior>
+
+        <vendor type="mysql">
+            <parameter name="Charset" value="utf8mb4"/>
+            <parameter name="Collate" value="utf8mb4_unicode_ci"/>
+        </vendor>
+    </table>
+    <table name="union">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" required="true" size="255"/>
+        <column name="color" type="varchar" required="true" size="7" defaultValue="#888888"/>
+
+        <behavior name="timestampable"/>
+        <behavior name="validate">
+            <parameter name="name_required" value="{column: name, validator: NotBlank}" />
+            <parameter name="color_required" value="{column: color, validator: NotBlank}" />
+            <parameter name="color_format" value="{column: color, validator: Regex, options: {pattern: '/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'}}" />
+        </behavior>
+
+        <vendor type="mysql">
+            <parameter name="Charset" value="utf8mb4"/>
+            <parameter name="Collate" value="utf8mb4_unicode_ci"/>
+        </vendor>
+    </table>
+</database>

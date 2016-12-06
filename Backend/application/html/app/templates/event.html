@@ -1,0 +1,23 @@
+  <style>.popover {/* height:500px; */width: 90%; }</style>
+
+
+  <ion-popover-view>
+<ion-header-bar align-title="left" class="bar-dark">
+Event Log
+
+</ion-header-bar>
+
+
+
+<ion-content scroll="true">
+<ion-list>
+<ion-item class="text-wrap"  ng-repeat="e in game.events track by $index" >
+ <center>
+{{e}} </center>
+
+
+ </ion-item>
+
+  </ion-list>
+  </ion-content>
+</ion-popover-view>

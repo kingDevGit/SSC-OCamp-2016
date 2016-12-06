@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="chrono" defaultIdMethod="native" namespace="App\Model" tablePrefix="chrono_">
+    <table name="setting">
+        <column name="name" type="varchar" size="255" required="true" primaryKey="true"/>
+        <column name="content" type="longvarchar" required="true"/>
+    </table>
+</database>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="chrono" defaultIdMethod="native" namespace="App\Model" tablePrefix="chrono_">
+    <table name="timer">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="player_id" type="integer" required="true"/>
+        <column name="pause" type="boolean" required="true" defaultValue="false"/>
+        <column name="pause_at" type="timestamp"/>
+        <column name="end_at" type="timestamp"/>
+
+        <column name="class_key" type="varchar" size="20" inheritance="single">
+            <inheritance key="timer" class="Timer"/>
+            <inheritance key="bomb" class="Bomb" extends="Timer"/>
+        </column>
+
+        <foreign-key foreignTable="player">
+            <reference local="player_id" foreign="id"/>
+        </foreign-key>
+
+        <index>
+            <index-column name="player_id"/>
+        </index>
+        <index>
+            <index-column name="pause"/>
+        </index>
+        <index>
+            <index-column name="end_at"/>
+        </index>
+
+        <behavior name="timestampable"/>
+    </table>
+    <table name="transaction">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="player_a" type="integer" required="true"/>
+        <column name="player_b" type="integer" required="true"/>
+        <column name="second" type="integer" required="true"/>
+        <column name="executed" type="boolean" required="true" defaultValue="false"/>
+
+        <foreign-key foreignTable="player" name="chrono_transaction_player_a">
+            <reference local="player_a" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="player" name="chrono_transaction_player_b">
+            <reference local="player_b" foreign="id"/>
+        </foreign-key>
+
+        <behavior name="timestampable"/>
+    </table>
+    <table name="notification">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="to_player" type="integer" required="true"/>
+        <column name="message" type="varchar" size="255" required="true"/>
+
+        <foreign-key foreignTable="player">
+            <reference local="to_player" foreign="id"/>
+        </foreign-key>
+
+        <index>
+            <index-column name="to_player"/>
+        </index>
+        <index>
+            <index-column name="created_at"/>
+        </index>
+
+        <behavior name="timestampable"/>
+
+        <vendor type="mysql">
+            <parameter name="Charset" value="utf8mb4"/>
+            <parameter name="Collate" value="utf8mb4_unicode_ci"/>
+        </vendor>
+    </table>
+</database>

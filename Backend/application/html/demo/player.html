@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="Chrono.Demo" ng-strict-di>
+<head lang="zh-hk">
+    <title>Operation Chrono</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-touch.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+
+    <!-- Library -->
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+    <!-- Api -->
+    <script src="../Chrono/Api/Api.js"></script>
+    <script src="../Chrono/Api/Auth.js"></script>
+    <script src="../Chrono/Api/Fetcher.js"></script>
+    <script src="../Chrono/Api/Online.js"></script>
+    <script src="../Chrono/Api/Socket.js"></script>
+    <script src="../Chrono/Api/Transaction.js"></script>
+    <script src="../Chrono/Api/Class/Bomb.js"></script>
+    <script src="../Chrono/Api/Class/Notification.js"></script>
+    <script src="../Chrono/Api/Class/Player.js"></script>
+    <script src="../Chrono/Api/Class/Timer.js"></script>
+    <script src="../Chrono/Api/Class/Union.js"></script>
+    <script src="../Chrono/Api/Exceptions/Handler.js"></script>
+    <script src="../Chrono/Api/Exceptions/ConnectionError.js"></script>
+    <script src="../Chrono/Api/Exceptions/EmailPasswordNotMatchException.js"></script>
+    <script src="../Chrono/Api/Exceptions/TimerNotFoundException.js"></script>
+    <script src="../Chrono/Api/Exceptions/TokenNotValidException.js"></script>
+    <script src="../Chrono/Api/Exceptions/UnknownError.js"></script>
+    <script src="../Chrono/Api/Exceptions/ViolateSettingsException.js"></script>
+
+    <!-- Demo -->
+    <script src="../Chrono/Demo/Demo.js"></script>
+    <script src="../Chrono/Demo/PlayerController.js"></script>
+</head>
+<body ng-controller="Chrono.Demo.PlayerController as ctrl">
+<p ng-show="ctrl.isLoading">Loading...</p>
+<div ng-show="!ctrl.isLoading">
+    <button ng-click="ctrl.socketOffline()">Socket offline</button>
+    <div ng-show="ctrl.primaryTimer">
+        <p>Primary Timer</p>
+        <p>Primary Timer isBomb: {{ ctrl.isBomb(ctrl.primaryTimer) }}</p>
+        <p>Primary Timer Pause: {{ ctrl.primaryTimer.pause }}</p>
+        <p>Primary Timer Second: {{ ctrl.primaryTimer.getRemainSecond() }}</p>
+        <p></p>
+    </div>
+    <div ng-show="ctrl.secondaryTimer">
+        <p>Secondary Timer</p>
+        <p>Secondary Timer isBomb: {{ ctrl.isBomb(ctrl.secondaryTimer) }}</p>
+        <p>Secondary Timer Pause: {{ ctrl.secondaryTimer.pause }}</p>
+        <p>Secondary Timer Second: {{ ctrl.secondaryTimer.getRemainSecond() }}</p>
+        <p></p>
+    </div>
+    <p>Player:
+    <pre>{{ ctrl.player | json }}</pre>
+    </p>
+    <p>Union:
+    <pre>{{ ctrl.union | json }}</pre>
+    </p>
+    <p>Settings:
+    <pre>{{ ctrl.settings | json }}</pre>
+    </p>
+    <ul>
+        <li>Notifications</li>
+        <li ng-repeat="n in ctrl.notifications | orderBy:'created_at':true track by n.id">{{ n.message }} <br> {{ n.created_at }}</li>
+    </ul>
+    <ul>
+        <li>Socket Event list</li>
+        <li ng-repeat="e in ctrl.events track by $index">{{ e }}</li>
+    </ul>
+</div>
+</body>
+</html>
